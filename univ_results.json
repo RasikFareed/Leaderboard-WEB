@@ -1,0 +1,37 @@
+[
+  {
+    "Rank" : "1",
+    "Name" : "Rahul",
+    "College" : "SNS Tech",
+    "Department":"CSE",
+    "Score" :"200"
+  },
+     {
+    "Rank" : "2",
+    "Name" : "Rasik",
+    "College" : "SNS Tech",
+    "Department":"CSE",
+    "Score" :"190"
+  },
+   {
+    "Rank" : "3",
+    "Name" : "Chitra",
+    "College" : "SNS Tech",
+    "Department":"CSE",
+    "Score" :"200"
+  },
+   {
+    "Rank" : "4",
+    "Name" : "Priya",
+    "College" : "SNS Tech",
+    "Department":"ECE",
+    "Score" :"180"
+  },
+   {
+    "Rank" : "5",
+    "Name" : "Kani",
+    "College" : "SNS Tech",
+    "Department":"IT",
+    "Score" :"180"
+  }
+ ]

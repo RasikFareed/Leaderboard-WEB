@@ -1,0 +1,9 @@
+[
+{
+"NO_OF_VIDEOS":3,
+"ENROLLMENT_POINTS":100,
+"DESCRIPTION":"It has been estimated that over three billion devices currently run Java programs including cell phones and computers. This course covers the basics of Java, an object oriented programming (OOP) language. The course begins with an overview of statements, Strings and classes, before moving on to OOP concepts like inheritance, interfaces, abstract classes, and polymorphism. Advanced topics like reflection, generics, and threads are not covered in this course.",
+"COMPLETION_POINTS":100,
+"COURSE_NAME":"Java"
+}
+]

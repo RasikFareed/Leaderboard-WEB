@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>Javascript Example </title>
+<script src="ajax.js"></script>
+<script>
+var url = "leaderboard.json";
+getJSON(url).then(function(response) {
+  var obj = response;
+  console.log("Success!", JSON.stringify(obj));
+  document.getElementById("skill_points").innerHTML=obj.skill_points;
+  document.getElementById("activity_points").innerHTML=obj.activity_points;
+}, function(error) {
+  console.error("Failed!", error);
+});
+
+</script>
+</head>
+<body>
+<h3> Team - Leadererboard -Points JSON</h3>
+<table border="1">
+<thead>
+	<tr><th>Skill Points </th><th> Activity Points</th> </tr>
+</thead>
+<tbody id="courseTbl"> 
+<tr> <td  id="skill_points"> </td><td id="activity_points"> </td></tr> 
+</tbody>
+</table>
+</body>
+</html>

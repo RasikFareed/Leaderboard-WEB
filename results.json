@@ -1,0 +1,33 @@
+[
+  {
+    "Rank" : "1",
+    "Name" : "Rahul",
+    "College" : "SNS Tech",
+    "Score" :"200"
+  },
+     {
+    "Rank" : "2",
+    "Name" : "Rasik",
+    "College" : "SNS Tech",
+    "Score" :"190"
+  },
+   {
+    "Rank" : "3",
+    "Name" : "Chitra",
+    "College" : "JEPPAIR",
+    "Score" :"200"
+  },
+   {
+    "Rank" : "4",
+    "Name" : "Priya",
+    "College" : "REC",
+    "Score" :"180"
+  },
+   {
+    "Rank" : "5",
+    "Name" : "Kani",
+    "College" : "REC",
+    "Score" :"180"
+  }
+ ]
+

@@ -1,0 +1,576 @@
+﻿<!DOCTYPE html>
+<html ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Dashboard">
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+
+    <title>Profile|Revature</title>
+<script src="ajax.js"></script>
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <!--external css-->
+    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="assets/css/zabuto_calendar.css">
+    <link rel="stylesheet" type="text/css" href="assets/js/gritter/css/jquery.gritter.css" />
+    <link rel="stylesheet" type="text/css" href="assets/lineicons/style.css">    
+    
+       <link href="assets/css/media.css" rel="stylesheet" />
+	<script src="assets/js/RGraph.common.dynamic.js"></script>
+	<script src="assets/js/RGraph.common.tooltips.js"></script>
+	<script src="assets/js/RGraph.pie.js"></script>
+    <script src="assets/js/RGraph.common.core.js"></script>
+	
+    
+    		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+         
+
+      <style>
+    .footer_wrapper {
+  min-height: 100%;
+
+  /* Equal to height of footer */
+  /* But also accounting for potential margin-bottom of last child */
+  margin-bottom: -50px;
+}
+.footers,
+.push_footer {
+  height: 50px;
+}
+</style>
+       
+    <style>
+	#imgs{
+	height:50px;
+	width:50px;
+	}
+#right-card{
+
+text-align:center;
+}
+#right-cards{
+
+text-align:center;
+margin-top:10px;
+}
+
+	</style>
+    <!-- Custom styles for this template -->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/style-responsive.css" rel="stylesheet">
+
+    <script src="assets/js/chart-master/Chart.js"></script>
+    
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script data-require="angular.js@1.4.0" data-semver="1.4.0" src="https://code.angularjs.org/1.4.0/angular.js"></script>
+    <script src="script.js"></script>
+      <!--bar chart-->  
+    <script type="text/javascript">
+    $(document).ready(function() {
+
+    var options = {
+        chart: {
+            renderTo: 'barcontainer',
+            backgroundColor: null,
+            plotBackgroundColor: '',
+            plotBorderWidth: null,
+            plotShadow: false,
+        type: 'column'
+    },
+       title: {
+        text: null
+    },
+    subtitle: {
+        text: null
+    },
+    xAxis: {
+
+     type: 'category'
+
+    },
+    yAxis: {
+        title: {
+            text: 'Completion Percentage'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: false,
+                format: '{point.y:.1f}%'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style=font-family:"ParaType-Futura-PT-Medium" ;font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+    },
+
+    series: [{
+        name: 'Percentage',
+        colorByPoint: true,
+       
+    }],
+};
+
+
+   function addSlicedToArray(data){
+     // console.log("Print Before Sliced");
+     // console.log(data);
+      var newData = [];
+      var j = 0;
+      for ( var i in data) {
+        //var obj = data[i];
+        //console.log(data[1]);
+        var newObj = { "name" : data[i].courseName , "y" : data[i].percentageCompleted};
+        // if ( ++j == 1) {
+        //    newObj["sliced"]=true;
+        //    newObj["selected"]=true;
+        // }
+        newData.push(newObj);
+      }
+     // console.log(JSON.stringify(newData));
+      return newData;
+    }
+    var studentId=(JSON.parse(localStorage.LOGGED_IN_USER));
+
+
+    $.getJSON('http://localhost:8080/core-app/student/'+studentId.studentId+'/course/percentage', function(data) {
+     //console.log(data);
+      //  options.series[0].data = data;
+        //options.xAxis.
+        //var chart = new Highcharts.Chart(options);
+         // console.log(JSON.stringify(data));
+        var slicedData = addSlicedToArray(data);
+       // console.log(JSON.stringify(slicedData));
+        options.series[0].data = slicedData;
+        //options.series[0].data.sliced= true;
+        var chart = new Highcharts.Chart(options);
+    });
+
+});
+</script>  
+
+  <!--pie chart-->  
+  <div>
+  <script type="text/javascript">
+  $(document).ready(function() {
+
+    var options = {
+        chart: {
+            renderTo: 'piecontainer',
+            backgroundColor:null,
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text:null
+        },
+        tooltip: {
+           formatter:function(){
+                   // console.log(this);
+                    return   this.key +': '+ this.y;
+                }
+           // pointFormat: '{series.name}: <b>{this.y}%</b>'
+        },
+         plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                dataLabels: {
+                    enabled: false,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black',
+                      }
+                },
+         showInLegend: true,
+                allowPointSelect: true,
+       point:{
+           events : {
+            legendItemClick: function(e){
+                e.preventDefault();
+            },
+              click: function () {
+                var clickedCourse=this.name;
+
+                          angular.element(document.getElementById('divID')).scope().getCourseDetails(clickedCourse);
+                               
+                
+                           // window.location="coursedetails.html";
+                            //window.location='http://localhost:8080/core-app/course/details/'+this.name;
+                        }
+           }
+       }
+            }
+        },
+        series: [{name: 'Hours',
+            colorByPoint: true,
+       
+              
+          }]
+    };
+
+   function addSlicedToArray(data){
+     // console.log("Print Before Sliced");
+     // console.log(data);
+      var newData = [];
+      var j = 0;
+      for ( var i in data) {
+        //var obj = data[i];
+        //console.log(data[1]);
+        var newObj = { "name" : data[i].courseName , "y" : data[i].hoursSpent};
+        if ( ++j == 1) {
+           newObj["sliced"]=true;
+           newObj["selected"]=true;
+        }
+        newData.push(newObj);
+      }
+     // console.log(JSON.stringify(newData));
+      return newData;
+    }
+    var studentId=(JSON.parse(localStorage.LOGGED_IN_USER));
+    $.getJSON('http://localhost:8080/core-app/student/'+studentId.studentId+'/course/hoursspent', function(data) {
+        //console.log(JSON.stringify(data));
+        var slicedData = addSlicedToArray(data);
+       // console.log(JSON.stringify(slicedData));
+        options.series[0].data = slicedData;
+        //options.series[0].data.sliced= true;
+        var chart = new Highcharts.Chart(options);
+    });
+
+});
+</script>     
+ </div>
+  </head>
+
+  <body style="overflow-x:hidden;" ng-app="myApp">
+
+  <section id="container" >
+      <!--**********************************************************************************************************************************************************
+      TOP BAR CONTENT & NOTIFICATIONS
+      *********************************************************************************************************************************************************** -->
+      <!--header start-->
+      <header class="header black-bg">
+      
+              <div class="sidebar-toggle-box">
+                  <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+              </div>
+              
+            <!--logo start-->
+            <a href="index.html" class="logo"><img src="assets\img\Revature.png" height="30px" width="97px"></a>
+            <!--logo end-->
+            
+            <div class="top-menu">
+            	<ul class="nav pull-right top-menu">
+                    <li ng-controller="LoginController"><a class="logout" ng-click="logout()"> Logout</a></li>
+            	</ul>
+            </div>
+             </div>
+   
+        </header>
+      <!--header end-->
+      
+      <!-- **********************************************************************************************************************************************************
+      MAIN SIDEBAR MENU
+      *********************************************************************************************************************************************************** -->
+      <!--sidebar start-->
+           <aside>
+          <div id="sidebar"  class="nav-collapse " ng-controller="LoginController">
+              <!-- sidebar menu start-->
+              <ul class="sidebar-menu" id="nav-accordion">
+              
+                  <p class="centered"><a href="profile.html"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
+                  <h5 class="centered">{{LOGGED_IN_USER.name}}</h5>
+                   <h5 class="centered">{{LOGGED_IN_USER.collegeName}}</h5>  
+                  
+<li class="mt">
+                      <a href="main.html">
+                          <i class="fa fa-dashboard"></i>
+                          <span><h4>Leaderboard</h4></span>
+                      </a>
+				
+                  </li>
+
+
+     <li class="sub-menu">
+                      <a class="active" href="javascript:;" >
+                          <i class="fa fa-desktop"></i>
+                          <span><h4>My Profile</h4></span>
+                      </a>
+                      <ul class="sub">
+                          <li class="active"><a  href="profile.html">Profile</a></li>
+                          <li ><a  href="skill.html">Skill Points</a></li>
+                          <li ><a  href="activity.html">Activity Points</a></li>
+                      </ul>
+                  </li>
+
+
+                  
+  </div>
+      </aside>
+      <!--sidebar end-->
+      
+      <!-- **********************************************************************************************************************************************************
+      MAIN CONTENT
+      *********************************************************************************************************************************************************** -->
+      <!--main content start-->
+      <section id="main-content">
+          <section class="wrapper">
+
+
+              <div class="row">
+           
+     <div class="col-lg-9 ">    
+                                     
+               
+           <div class="border-head">
+                          <h3><strong>Hours Distribution</strong></h3>
+                      </div>
+          
+        
+           <div class="text-center">                        <!-- REVENUE PANEL -->
+<div  ng-controller="myCourseCtrl" id="divID">
+ <div id="piecontainer" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+</div>
+</div>
+				</div><!-- /col-md-4 -->
+                        
+						
+ <div class="col-lg-3 ds" >
+<div class="w3-col m2">
+      <div class="w3-card-2 w3-round w3-white ">
+       
+           <div class="w3-container w3-dark-grey text-center">
+           <h2 class="centered"style="color:white">Rank</h2>
+         
+                <button onclick="location.href='main.html';" class="btn-primary" ng-controller="myPoints">Global Rank: &nbsp; {{myPoints.global_rank}} </button>
+         
+                 <div style="margin-top:10px">
+                  <button onclick="location.href='main.html';" class="btn-primary" ng-controller="myPoints">University Rank:&nbsp; {{myPoints.university_rank}}
+                  </button>  
+ </div>
+        <p>&nbsp;</p>
+           
+           </div>
+      </div>
+
+
+</div>  
+
+
+				</div><!-- /row -->
+                <div class="col-lg-3 ds" style="margin-top:10px;">
+<div class="w3-col m2">
+      <div class="w3-card-2 w3-round w3-white ">
+       
+           <div class="w3-container w3-dark-grey text-center">
+          <h2 class="centered"style="color:white">Score</h2>
+          
+                   <button onclick="location.href='skill.html';" class="btn-primary" ng-controller="LoginController">Skill Points:&nbsp;{{LOGGED_IN_USER.skillPoints}}</button>
+        
+                <div style="margin-top:10px">
+                  <button onclick="location.href='activity.html';" class="btn-primary" ng-controller="LoginController" >Activity Points:&nbsp; {{LOGGED_IN_USER.activityPoints}} </button> 
+  
+ </div>
+        <p>&nbsp;</p>
+           
+           </div>
+      </div>
+
+
+</div> 
+</div>
+
+                    <div class="row mt">
+
+                      <!--CUSTOM CHART START -->
+			 <div class="col-lg-9 main-chart">
+                      <div class="border-head">
+                          <h3><strong>&nbsp;&nbsp;Courses</strong></h3> 
+                      </div>
+                      <div id="barcontainer" style="min-width: 310px; height: 400px; max-width: 1000px; margin: 0 auto"></div>
+                    
+                       
+</div>
+					</div><!-- /row -->
+</div>	
+					
+  </div><!-- /col-lg-9 END SECTION MIDDLE -->
+                  
+	                
+                      
+                      
+                    		
+					
+              </div>    </div><!-- /col-lg-9 END SECTION MIDDLE -->
+                
+                  
+             </div><!--/row -->
+      <!-- **********************************************************************************************************************************************************
+      RIGHT SIDEBAR CONTENT
+      *********************************************************************************************************************************************************** -->                  
+       
+
+         
+				
+			<div class="row">	
+     <div class="border-head" >
+                          <h3><strong>&nbsp;&nbsp;Projects</strong></h3>
+                      </div>
+	                  
+	                  <div class="col-md-9 mt">
+	                  	<div class="content-panels">
+	                          <table class="table table-hover" ng-controller="projectPercentage">
+	                  	  	  
+	                  	  	    <thead>
+	                              <tr>
+	                                  <th>#</th>
+	                                  <th>Project</th>
+	                                  <th>Progress</th>
+	                                  
+	                              </tr>
+	                              </thead>
+
+                                 <tbody ng-controller="projectPercentage">
+      <tr  ng-repeat="x in projectPercentage">
+        <td>{{$index+1}}</td>
+        <td>{{x.projectName}}</td>
+        <td><div class="progress progress-striped active">
+        <div class="progress-bar" role="progressbar" aria-valuenow=" {{x.percentageCompleted}}" aria-valuemin="0" aria-valuemax="100" 
+        style="width: {{x.percentageCompleted}}%">
+     {{x.percentageCompleted}}
+    </div>
+    </div></td>
+      </tr>
+  </tbody>
+	                              <!-- <tbody>
+	                              <tr>
+	                                  <td>1</td>
+	                                  <td>PubHub(Mysql)</td>
+	                                  <td><div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+      100%
+    </div>
+  </div></td>
+	                                  
+	                              </tr>
+	                              <tr>
+	                                  <td>2</td>
+	                                  <td>eZoo(Java)</td>
+	                                  <td><div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+      70%
+    </div>
+  </div></td>
+	                                 
+	                              </tr>
+	                              <tr>
+	                                  <td>3</td>
+	                                  <td>Foodar(Mysql)</td>
+	                                  <td><div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:50%">50%
+    </div>
+  </div></td>
+	                                 
+	                              </tr>
+	                              </tbody> -->
+	                          </table>
+	                  	  </div><!--/content-panel -->
+	                  </div><!-- /col-md-12 -->
+				
+          </section>   
+ 
+          
+
+      <!--main content end-->
+    
+  </section>
+
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/jquery-1.8.3.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script class="include" type="text/javascript" src="assets/js/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="assets/js/jquery.scrollTo.min.js"></script>
+    <script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
+    <script src="assets/js/jquery.sparkline.js"></script>
+
+
+    <!--common script for all pages-->
+    <script src="assets/js/common-scripts.js"></script>
+    
+    <script type="text/javascript" src="assets/js/gritter/js/jquery.gritter.js"></script>
+    <script type="text/javascript" src="assets/js/gritter-conf.js"></script>
+
+    <!--script for this page-->
+    <script src="assets/js/sparkline-chart.js"></script>    
+	<script src="assets/js/zabuto_calendar.js"></script>	
+	
+	<script  src="js/highcharts.js"></script>
+  <script src="https://code.highcharts.com/highcharts-more.js"></script>
+	<script type="application/javascript">
+        $(document).ready(function () {
+            $("#date-popover").popover({html: true, trigger: "manual"});
+            $("#date-popover").hide();
+            $("#date-popover").click(function (e) {
+                $(this).hide();
+            });
+        
+            $("#my-calendar").zabuto_calendar({
+                action: function () {
+                    return myDateFunction(this.id, false);
+                },
+                action_nav: function () {
+                    return myNavFunction(this.id);
+                },
+                ajax: {
+                    url: "show_data.php?action=1",
+                    modal: true
+                },
+                legend: [
+                    {type: "text", label: "Special event", badge: "00"},
+                    {type: "block", label: "Regular event", }
+                ]
+            });
+        });
+        
+        
+        function myNavFunction(id) {
+            $("#date-popover").hide();
+            var nav = $("#" + id).data("navigation");
+            var to = $("#" + id).data("to");
+            console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
+        }
+    </script>
+
+
+                  
+
+  <div align="center">
+
+  </body>
+       <div class="wrapper">
+
+     
+
+    <div class="push_footer"></div>
+  </div>
+  <footer class="footers"><strong>RevaturePro</strong>&copy;2017</footer>
+</html>

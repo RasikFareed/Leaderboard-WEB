@@ -1,0 +1,1 @@
+aws s3 sync . s3://rasik --region ap-south-1

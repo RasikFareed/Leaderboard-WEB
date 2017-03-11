@@ -1,0 +1,306 @@
+﻿<!DOCTYPE html>
+<html ng-app="myApp">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Dashboard">
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+
+    <title>Mysql|Revature</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+     <link href="assets/css/media.css" rel="stylesheet">
+    <!--external css-->
+    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="assets/css/zabuto_calendar.css">
+    <link rel="stylesheet" type="text/css" href="assets/js/gritter/css/jquery.gritter.css" />
+    <link rel="stylesheet" type="text/css" href="assets/lineicons/style.css">    
+    <style>#imgs{height:50px;width:50px;}</style>
+    <!-- Custom styles for this template -->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/style-responsive.css" rel="stylesheet">
+
+    <script src="assets/js/chart-master/Chart.js"></script>
+    <script data-require="angular.js@1.4.0" data-semver="1.4.0" src="https://code.angularjs.org/1.4.0/angular.js"></script>
+    <script src="script.js"></script>
+    
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+    <![endif]-->
+
+ <style>
+    .footer_wrapper {
+  min-height: 100%;
+
+  /* Equal to height of footer */
+  /* But also accounting for potential margin-bottom of last child */
+  margin-bottom: -50px;
+}
+.footers,
+.push_footer {
+  height: 50px;
+}
+</style>
+
+
+
+<style>
+#text{font-size:20px;
+top:40px;left:-20px;
+}
+
+</style>
+  </head>
+
+  <body  ng-controller="myCourseCtrl" ng-init="init()">
+
+  <section id="container" >
+      <!-- **********************************************************************************************************************************************************
+      TOP BAR CONTENT & NOTIFICATIONS
+      *********************************************************************************************************************************************************** -->
+      <!--header start-->
+      <header class="header black-bg">
+              <div class="sidebar-toggle-box">
+                  <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+              </div>
+            <!--logo start-->
+            <a href="index.html" class="logo"><img src="assets\img\Revature.png" height="30px" width="97px"></a>
+            <!--logo end-->
+            <div class="top-menu">
+            	<ul class="nav pull-right top-menu">
+                    <li><a class="logout" href="profile.html">Back to Profile</a></li>
+            	</ul>
+            </div>
+        </header>
+      <!--header end-->
+      
+      <!-- **********************************************************************************************************************************************************
+      MAIN SIDEBAR MENU
+      *********************************************************************************************************************************************************** -->
+      <!--sidebar start-->
+      <aside>
+          <div id="sidebar"  class="nav-collapse" ng-controller="LoginController">
+              <!-- sidebar menu start-->
+              <ul class="sidebar-menu" id="nav-accordion">
+              
+              	  <p class="centered"><a href="profile.html"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
+              	  <h5 class="centered">{{LOGGED_IN_USER.name}}</h5>
+                   <h5 class="centered">{{LOGGED_IN_USER.collegeName}}</h5>  
+                  
+<li class="mt">
+                      <a class="active" href="main.html">
+                          <i class="fa fa-dashboard"></i>
+                          <span><h4>Leaderboard</h4></span>
+                      </a>
+				
+                  </li>
+
+
+
+
+
+                           <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-desktop"></i>
+                          <span><h4>My Profile</h4></span>
+                      </a>
+                      <ul class="sub">
+                          <li class="active"><a  href="profile.html">Profile</a></li>
+                          <li><a  href="skill.html">Skill Points</a></li>
+                          <li ><a  href="activity.html">Activity Points</a></li>
+                      </ul>
+                  </li>
+
+               
+               <div class="dss">
+<h3 style="color:white";>Global Rank: &nbsp; 63 </h3>
+<div style="margin-top:10px";>
+ <h3 style="color:white">University Rank:&nbsp; 27</h3>  
+ </div> 
+  </div>
+          </div>
+      </aside>
+      <!--sidebar end-->
+      
+      <!-- **********************************************************************************************************************************************************
+      MAIN CONTENT
+      *********************************************************************************************************************************************************** -->
+      <!--main content start-->
+
+      
+      <section id="main-content">
+          <section class="wrapper">
+
+
+              <div class="row">
+       
+     <div class="col-lg-12 col-md-12 col-sm-12">    
+            <table class="col-lg-12 col-md-6 col-md-6">           
+           <thead>   <h2><strong>{{course.COURSE_NAME}}</strong></h2></thead></table>
+<div class="col-lg-3 col-md-3 col-sm-3">
+  <img src="assets/img/coursedtls.jpg" width="250" height="150">
+</div>
+
+
+<div class="col-lg-7 col-md-3 col-sm-6">
+<p style="align:justify">
+
+{{course.DESCRIPTION}}
+</p>
+</div>
+ 
+
+<div class="col-lg-2 col-md-3 col-sm-3" style="color:white;background-color:#474c55">
+<table>
+<thead>
+<h4 class="centered">Course Details</h4>
+</thead>
+<tr><td><td>No of videos:</td></td><td>{{course.NO_OF_VIDEOS}}</td></tr>
+<tr><td><td>Enrollement points:</td></td><td>{{course.ENROLLMENT_POINTS}}</td></tr>
+<tr><td><td>Completion points:</td><td>{{course.COMPLETION_POINTS}}</td></td>
+</table>
+<br>
+</div>  
+
+
+          
+</div><!-- col-lg-12 -->
+</div><!-- row -->
+                        
+						
+
+
+                
+</div>
+
+<div ng-controller="myCourseActivityCtrl" class="col-md-4 col1 centered" style="background-color: transparent;" >
+<br>
+
+<div  ng-repeat="items in courseActivity">
+         <div class="panel panel-default">
+            <div class="panel-body" ng-bind=items.ACTIVITY_NAME></div>
+        </div>
+      </div>
+
+
+     <!-- <div ng-repeat="activity in courseActivity" class="panel panel-default">
+        <div class="panel-body">{{activity.ACTIVITY_NAME}}</div>
+        {{courseActivity}}
+    </div> -->
+
+       <!--  <div class="panel panel-default">
+            <div class="panel-body">Mysql Statements</div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">Mysql Strings</div>
+        </div></div>
+
+ <div class="col-md-4 col1 centered" style="background-color:transparent;">
+            <br>
+           
+         <div class="panel panel-default">
+            <div class="panel-body">Mysql Classes</div>
+        </div>
+         <div class="panel panel-default">
+            <div class="panel-body">Mysql Inheritance</div>
+        </div>
+         <div class="panel panel-default">
+            <div class="panel-body">Mysql Keywords</div>
+        </div></div>
+
+ <div class="col-md-4 col1 centered" style="background-color:transparent;">
+            <br>
+           
+         <div class="panel panel-default">
+            <div class="panel-body">Mysql Interfaces</div>
+        </div>
+         <div class="panel panel-default">
+            <div class="panel-body">Mysql Exceptions</div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">Mysql - The Object Class</div>
+        </div></div -->
+        </div>
+
+          </section>
+      </section>
+      
+
+      <!--main content end-->
+      
+  </section>
+
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/jquery-1.8.3.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script class="include" type="text/javascript" src="assets/js/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="assets/js/jquery.scrollTo.min.js"></script>
+    <script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
+    <script src="assets/js/jquery.sparkline.js"></script>
+
+
+    <!--common script for all pages-->
+    <script src="assets/js/common-scripts.js"></script>
+    
+    <script type="text/javascript" src="assets/js/gritter/js/jquery.gritter.js"></script>
+    <script type="text/javascript" src="assets/js/gritter-conf.js"></script>
+
+    <!--script for this page-->
+    <script src="assets/js/sparkline-chart.js"></script>    
+	<script src="assets/js/zabuto_calendar.js"></script>	
+	
+	
+	<script type="application/javascript">
+        $(document).ready(function () {
+            $("#date-popover").popover({html: true, trigger: "manual"});
+            $("#date-popover").hide();
+            $("#date-popover").click(function (e) {
+                $(this).hide();
+            });
+        
+            $("#my-calendar").zabuto_calendar({
+                action: function () {
+                    return myDateFunction(this.id, false);
+                },
+                action_nav: function () {
+                    return myNavFunction(this.id);
+                },
+                ajax: {
+                    url: "show_data.php?action=1",
+                    modal: true
+                },
+                legend: [
+                    {type: "text", label: "Special event", badge: "00"},
+                    {type: "block", label: "Regular event", }
+                ]
+            });
+        });
+        
+        
+        function myNavFunction(id) {
+            $("#date-popover").hide();
+            var nav = $("#" + id).data("navigation");
+            var to = $("#" + id).data("to");
+            console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
+        }
+    </script>
+  
+<div align="center">
+
+  </body>
+       <div class="wrapper">
+
+     
+
+    <div class="push_footer"></div>
+  </div>
+  <footer class="footers"><strong>RevaturePro</strong>&copy;2017</footer>
+</html>
+
